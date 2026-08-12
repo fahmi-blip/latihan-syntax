@@ -11,7 +11,24 @@ type User struct {
 func (u *User) Activate() { u.IsActive = true } 
 func (u User) Info() string { return fmt.Sprintf("%s aktif: %v", u.Username, u.IsActive) } 
 
-func tukarNilai(a, b *int) { *a, *b = *b, *a }
+
+func swap(a,b *int) {
+	tes := *a
+	*a = *b
+	*b = tes
+}
+
+func passByValue(a int){
+	a = 10
+}
+func passByPointer(a *int){
+	*a = 10
+}
+
+func updateSlice(s *[]string, newItem string){
+	*s = append(*s, newItem)
+}
+
 
 func main() { 
 
@@ -50,4 +67,34 @@ func main() {
 	for nama, nilai := range mahasiswa {
 		fmt.Println("Nama:", nama, "| Nilai:", nilai)
 	}
+
+
+//3. Pointer
+
+	//Fungsi swap
+	nilai1, nilai2  := 10, 15
+	
+	fmt.Println("Sebelum diubah: ", nilai1, nilai2)
+	swap(&nilai1, &nilai2)
+	fmt.Println("Setelah diubah: ", nilai1, nilai2)
+
+	x :=5
+	passByValue(x)
+	fmt.Println("pass by value:",x)
+
+	passByPointer(&x)
+	fmt.Println("pass by value:", x)
+
+	
+	//Fungsi updateSlice
+	nilai3 := []string{"a", "b","c"} 
+	fmt.Println("Sebelum menambahkan item ke slice:",nilai3)
+
+	nilai3 = append(nilai3, "d") 
+	fmt.Println("Setelah Menambahkan item ke slice:",nilai3)
+
+
+//4. Struct Student
+
+
 }
