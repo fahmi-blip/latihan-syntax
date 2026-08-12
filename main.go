@@ -2,16 +2,7 @@ package main
 
 import "fmt"
 
-type User struct {
-	ID 			int			`json:"id"`
-	Username 	string 		`json:"username"`
-	IsActive 	bool 		`json:"is_active"`
-}
-
-func (u *User) Activate() { u.IsActive = true } 
-func (u User) Info() string { return fmt.Sprintf("%s aktif: %v", u.Username, u.IsActive) } 
-
-
+// 3. Pointer
 func swap(a,b *int) {
 	tes := *a
 	*a = *b
@@ -28,6 +19,32 @@ func passByPointer(a *int){
 func updateSlice(s *[]string, newItem string){
 	*s = append(*s, newItem)
 }
+// ==============
+
+
+// 4. Struct Student
+type Student struct {
+	ID int `json:"id"`
+	Name string `json:"name"`
+	Grade float64 `json:"grade"`
+	IsActive bool `json:"is_active"`
+}
+
+func (s Student) GetInfo() string {
+	return fmt.Sprintf(" ID: %v, Nama: %s, Grade: %v, IsActive: %v", s.ID, s.Name, s.Grade, s.IsActive)
+}
+
+func (s *Student) UpdateGrade(grade float64) {
+	s.Grade = grade
+}
+func (s *Student) Activate() { 
+	s.IsActive = true
+} 
+func (s *Student) Deactivate() { 
+	s.IsActive = false
+} 
+// ==============
+
 
 
 func main() { 
@@ -95,6 +112,17 @@ func main() {
 
 
 //4. Struct Student
+	student := Student{ID: 1, Name: "Fahmi", Grade: 80}
 
-
+	//Fungsi GetInfo
+	student.Activate()
+	fmt.Println("Menampilkan informasi lengkap student:",student.GetInfo())
+	
+	//Fungsi UpdateGrade
+	student.UpdateGrade(88.50)
+	fmt.Println("Update nilai:", student.GetInfo())
+	
+	//Fungsi Deactivate
+	student.Deactivate()
+	fmt.Println("Ubah status aktif:", student.GetInfo())
 }
